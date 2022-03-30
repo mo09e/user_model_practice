@@ -18,7 +18,7 @@ def create(request):
         content = request.POST['content']
         article = Article(title=title, content=content)
         article.save()
-        return redirect('index')
+        return redirect('blog:index')
     else:
         params = {
             'form': ArticleForm(),
@@ -40,7 +40,7 @@ def edit(request, article_id):
         article.title = request.POST['title']
         article.content = request.POST['content']
         article.save()
-        return redirect('detail', article_id)
+        return redirect('blog:detail', article_id)
     else:
         form = ArticleForm(initial={
             'title': article.title,
@@ -57,7 +57,7 @@ def delete(request, article_id):
     article = Article.objects.get(id=article_id)
     if (request.method == 'POST'):
         article.delete()
-        return redirect('index')
+        return redirect('blog:index')
     else:
         params = {
             'article': article,
